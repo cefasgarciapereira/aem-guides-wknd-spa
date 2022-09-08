@@ -1,7 +1,20 @@
+import HandsOn from './components/HandsOn/HandsOn'
 import ImageCustom from './components/ImageCustom/ImageCustom'
 import Text from './components/Text/Text'
 import AppPage from './components/Page/AppPage'
 import { withComponentMappingContext, MapTo } from '@mavice/aem-vue-editable-components'
+
+// HandsOn Component Mapping
+MapTo('wknd-spa-vue/components/hands-on')(
+  HandsOn,
+  {
+    emptyLabel: 'HandsOn',
+    isEmpty: (props) => {
+      return !props || !props.src || props.src.trim().length < 1
+    },
+    resourceType: 'wknd-spa-vue/components/hands-on'
+  }
+)
 
 // ImageCustom Component Mapping
 MapTo('wknd-spa-vue/components/image-custom')(

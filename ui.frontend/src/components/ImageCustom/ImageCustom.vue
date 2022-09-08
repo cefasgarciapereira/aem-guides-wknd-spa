@@ -23,7 +23,7 @@ onMounted(() => {
 .image-content {
 
  h1 {
-   color: green;
+   color: red;
  }
 
  img {
