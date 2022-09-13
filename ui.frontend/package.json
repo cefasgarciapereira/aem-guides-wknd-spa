@@ -15,8 +15,10 @@
     "dompurify": "^2.2.6",
     "vue": "^2.6.12",
     "vue-class-component": "^7.2.3",
+    "vue-frag": "^1.4.1",
     "vue-property-decorator": "^9.1.2",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.1",
+    "vuex": "^2.5.0"
   },
   "peerDependencies": {
     "@adobe/aem-spa-component-mapping": "^1.0.7",

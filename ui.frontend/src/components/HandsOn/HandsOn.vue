@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import store from '../../store'
 
 const props = defineProps({
   title: String
@@ -52,6 +53,14 @@ function fetchEntries (query: string) {
     <div v-for="value in entries" :key="value['API']">
         <strong>{{ value['API'] }}:</strong> {{ value['Description'] }}
     </div>
+
+    <div>
+      store: {{store.state.count}}
+      <button @click="store.commit('increment')">
+        Increment store
+      </button>
+    </div>
+
     </v-fragment>
 </template>
 
