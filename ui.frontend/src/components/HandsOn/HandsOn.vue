@@ -16,7 +16,7 @@ function increment () {
 
 function fetchEntries (query: string) {
   loading.value = true
-  fetch(`https://api.publicapis.org/entries?title=${query}`)
+  fetch(`/bin/handson?query=${query}`)
     .then(response =>
       response.json()
         .then(data => {

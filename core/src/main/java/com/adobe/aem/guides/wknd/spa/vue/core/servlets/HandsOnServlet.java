@@ -30,19 +30,23 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import java.io.IOException;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+
 /**
  * Servlet that writes some sample content into the response. It is mounted for
  * all resources of a specific Sling resource type. The
  * {@link SlingSafeMethodsServlet} shall be used for HTTP methods that are
  * idempotent. For write operations use the {@link SlingAllMethodsServlet}.
  */
-@Component(service = { Servlet.class }, property={"sling.servlet.methods=get", "sling.servlet.paths=/bin/simpleservlet"})
+@Component(service = { Servlet.class }, property={"sling.servlet.methods=get", "sling.servlet.paths=/bin/handson"})
 @SlingServletResourceTypes(
         resourceTypes="wknd-spa-vue/components/page",
         methods=HttpConstants.METHOD_GET,
         extensions="txt")
-@ServiceDescription("Simple Demo Servlet")
-public class SimpleServlet extends SlingSafeMethodsServlet {
+@ServiceDescription("Hands On Servlet")
+public class HandsOnServlet extends SlingSafeMethodsServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,6 +55,38 @@ public class SimpleServlet extends SlingSafeMethodsServlet {
             final SlingHttpServletResponse resp) throws ServletException, IOException {
         final Resource resource = req.getResource();
         resp.setContentType("text/plain");
-        resp.getWriter().write("Title = " + resource.getValueMap().get(JcrConstants.JCR_TITLE));
+        resp.getWriter().write(fetchData(req.getParameter("query")));
+    }
+
+    protected String fetchData(String query){
+        try{
+            // Host url
+            URL url = new URL("https://api.publicapis.org/entries?title="+query);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+
+            //Getting the response code
+            int responsecode = conn.getResponseCode();
+
+            if (responsecode != 200) {
+                return "Error: Response code is not 200";
+            } else {
+                String inline = "";
+                Scanner scanner = new Scanner(url.openStream());
+
+                //Write all the JSON data into a string using a scanner
+                while (scanner.hasNext()) {
+                    inline += scanner.nextLine();
+                }
+
+                //Close the scanner
+                scanner.close();
+
+                return inline;
+            }
+        }catch(IOException e){
+            return "Erro na chamada à API";
+        }
     }
 }
