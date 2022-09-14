@@ -1,6 +1,7 @@
 import HandsOn from './components/HandsOn/HandsOn'
 import ImageCustom from './components/ImageCustom/ImageCustom'
 import Text from './components/Text/Text'
+import ThemeToggler from './components/ThemeToggler/ThemeToggler'
 import AppPage from './components/Page/AppPage'
 import { withComponentMappingContext, MapTo } from '@mavice/aem-vue-editable-components'
 
@@ -37,6 +38,18 @@ MapTo('wknd-spa-vue/components/text')(
       return !props || !props.text || props.text.trim().length < 1
     },
     resourceType: 'wknd-spa-vue/components/text'
+  }
+)
+
+// Theme Toggler Component Mapping
+MapTo('wknd-spa-vue/components/theme-toggler')(
+  ThemeToggler,
+  {
+    emptyLabel: 'ThemeToggler',
+    isEmpty: (props) => {
+      return !props || !props.src || props.src.trim().length < 1
+    },
+    resourceType: 'wknd-spa-vue/components/theme-toggler'
   }
 )
 
