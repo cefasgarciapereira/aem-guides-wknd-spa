@@ -31,7 +31,7 @@ function fetchEntries (query: string) {
 </script>
 
 <template>
-    <v-fragment>
+    <div>
     <h1>Hands On: {{props.title}}</h1>
 
     <button @click="increment">
@@ -61,7 +61,7 @@ function fetchEntries (query: string) {
       </button>
     </div>
 
-    </v-fragment>
+    </div>
 </template>
 
 <style scoped>

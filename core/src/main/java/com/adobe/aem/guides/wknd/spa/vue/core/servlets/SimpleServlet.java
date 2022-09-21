@@ -15,15 +15,15 @@
  */
 package com.adobe.aem.guides.wknd.spa.vue.core.servlets;
 
-import com.day.cq.commons.jcr.JcrConstants;
+import com.adobe.aem.guides.wknd.spa.vue.core.services.ServiceTransferConfig;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
-import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.propertytypes.ServiceDescription;
 
 import javax.servlet.Servlet;
@@ -44,13 +44,16 @@ import java.io.IOException;
 @ServiceDescription("Simple Demo Servlet")
 public class SimpleServlet extends SlingSafeMethodsServlet {
 
+    @Reference
+    private ServiceTransferConfig serviceTransferConfig;
+
     private static final long serialVersionUID = 1L;
 
     @Override
     protected void doGet(final SlingHttpServletRequest req,
             final SlingHttpServletResponse resp) throws ServletException, IOException {
-        final Resource resource = req.getResource();
+        String privateKey = serviceTransferConfig.getPrivateKey();
         resp.setContentType("text/plain");
-        resp.getWriter().write("Title = " + resource.getValueMap().get(JcrConstants.JCR_TITLE));
+        resp.getWriter().write("Private Key = " + privateKey);
     }
 }
