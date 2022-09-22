@@ -31,6 +31,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * Servlet that writes some sample content into the response. It is mounted for
@@ -59,9 +60,11 @@ public class SetCookieServlet extends SlingSafeMethodsServlet {
         Cookie cookie = new Cookie("data", data);
         
         cookie.setMaxAge(86400);
+        cookie.setPath("/");
 
         resp.addCookie(cookie);
         resp.setContentType("text/plain");
         resp.getWriter().write("OK");
+        resp.sendRedirect("https://www.google.com.br");
     }
 }
