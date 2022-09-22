@@ -1,4 +1,6 @@
 # Created by https://www.gitignore.io/api/eclipse,java,maven
+### AEM ###
+aem/*
 
 ### Eclipse ###
 *.pydevproject
@@ -6,7 +8,7 @@
 .gradle
 bin/
 tmp/
-*.tmp
+*.tmpimple Demo
 *.bak
 *.swp
 *~.nib
